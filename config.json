@@ -1,6 +1,6 @@
 {
     // time between each check (seconds)
-    "default-internal-time":900,
+    "sleep-time":900,
     // 1 -> Email
     // 2 -> IFTTT
     // 3 -> Telegram
@@ -21,14 +21,12 @@
         "botToken": "TOKEN",
         "chatId": "CHAT_ID"
     },
-    // amazon base url
-    "amazon-base_url": "https://www.amazon.jp/dp/",
     "xpath_selector" : {
-        "price": "//*[@id='priceblock_ourprice']",
+        "price": "//*[@id='corePrice_desktop']",
         "productname": "//span[@id='productTitle']"
     },
-    "item-to-parse": [
-        // item id , your expected price, productname(optional)
-        ["B01NCXFWIZ", 33500,"Nintendo Switch Joy-Con (L) ネオンブルー/ (R) ネオンレッド"]
+    "products": [
+        ["https://www.amazon.com/dp/B097CWMLJ5"],
+        ["https://www.amazon.co.uk/dp/B08NT9WQBG"]
     ]
 }
