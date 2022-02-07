@@ -39,20 +39,37 @@ def get_datetime():
 def parse_product(product):
 	return product[0]
 
+def find_main_price_container(webpage):
+	price_container = webpage.find(id="corePrice_desktop")
+	if price_container != None:
+		return price_container
+	
+	price_container = webpage.find(id="corePriceDisplay_desktop_feature_div")
+	if price_container != None:
+		return price_container
+	
+	return None
+
+
+
+def find_price_container(webpage):
+	price_container = find_main_price_container(webpage).find("span", class_="a-offscreen")
+	if price_container == None:
+		return None
+
+	return price_container
+
 def get_product_price(response):
 
 	webpage = BeautifulSoup(response.content, "html.parser")
 
-	price_container = webpage.find(id="corePrice_desktop").find("span", class_="a-offscreen")
-
+	price_container = find_price_container(webpage)
 	if price_container == None:
-		price_container = "   "
-	else:
-		price_container = price_container.text
+		return None
 
-	price = re.findall('\d+.\d+', price_container)
+	price = re.findall('\d+.\d+', price_container.text)
 	if price:
-		price = float(price[0])
+		price = float(price[0].replace(",", ""))
 	else:
 		price = None
 
@@ -63,6 +80,8 @@ def get_product_name(response):
 	webpage = BeautifulSoup(response.content, "html.parser")
 
 	name_container = webpage.find(id="productTitle")
+	if name_container == None:
+		return None
 
 	return name_container.text.strip()[:30] + "..."
 
