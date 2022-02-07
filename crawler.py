@@ -104,7 +104,7 @@ def main():
 	sleep_time = config['sleep-time']
 	products = config['products']
 
-	print("Start scanning of products...")
+	print("Start product scanning...")
 	while True:
 		scan_products(products)
 
